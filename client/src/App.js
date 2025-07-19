@@ -1,26 +1,21 @@
-import './App.css';
-import Navbar from './components/Navbar';
-import HeroSection from './components/HeroSection';
-import ProductionsSection from './components/ProductionsSection';
-import AwardsSection from './components/AwardsSection';
-import StorySection from './components/StorySection';
-import SocialSection from './components/SocialSection';
-import ContactSection from './components/ContactSection';
-import Footer from './components/Footer';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
-function App() {
+// Pages
+import HomePage from "./pages/HomePage";
+import WhoWeArePage from "./pages/WhoWeArePage";
+
+export default function App() {
   return (
-    <>
-      <Navbar/>
-      <HeroSection/>
-      <ProductionsSection/>
-      <AwardsSection/>
-      <StorySection/>
-      <SocialSection/>
-      <ContactSection/>
-      <Footer/>
-    </>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/who-we-are" element={<WhoWeArePage />} />
+        {/* Add more pages here later */}
+      </Routes>
+      <Footer />
+    </Router>
   );
 }
-
-export default App;
