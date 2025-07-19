@@ -1,27 +1,26 @@
 import Contact from "../schemas/Contact.js";
 
-// ✅ POST - Save a contact message
-export const saveContactMessage = async (req, res) => {
+export const createContact = async (req, res) => {
   try {
-    const { name, email, projectType, message } = req.body;
+    const { name, email, projectType, message, source } = req.body;
 
-    const newMessage = new Contact({ name, email, projectType, message });
-    await newMessage.save();
+    if (!name || !email || !projectType || !message) {
+      return res.status(400).json({ success: false, message: "All fields required" });
+    }
 
-    res.status(201).json({ success: true, message: "Message saved successfully!" });
+    const newContact = new Contact({
+      name,
+      email,
+      projectType,
+      message,
+      source: source || "unknown" // ✅ Track where it came from
+    });
+
+    await newContact.save();
+
+    res.status(201).json({ success: true, message: "Message saved successfully" });
   } catch (error) {
-    console.error("Error saving contact message:", error);
-    res.status(500).json({ success: false, message: "Server error" });
-  }
-};
-
-// ✅ GET - Fetch all messages (for admin)
-export const getAllMessages = async (req, res) => {
-  try {
-    const messages = await Contact.find().sort({ createdAt: -1 });
-    res.json(messages);
-  } catch (error) {
-    console.error("Error fetching messages:", error);
+    console.error("Error saving contact:", error);
     res.status(500).json({ success: false, message: "Server error" });
   }
 };

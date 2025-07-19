@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 // Pages
 import HomePage from "./pages/HomePage";
 import WhoWeArePage from "./pages/WhoWeArePage";
+import GetInTouchPage from "./pages/GetInTouchPage";
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/who-we-are" element={<WhoWeArePage />} />
+        <Route path="/contact" element={<GetInTouchPage />} />
         {/* Add more pages here later */}
       </Routes>
       <Footer />
