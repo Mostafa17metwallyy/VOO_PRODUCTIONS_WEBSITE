@@ -3,6 +3,11 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import contactRoutes from "./routes/contactRoutes.js";
+import filmRoutes from "./routes/filmRoutes.js";
+import episodicRoutes from "./routes/episodicRoutes.js";
+import authRoutes from "./routes/adminAuthRoutes.js";
+
+
 
 dotenv.config();
 
@@ -29,6 +34,11 @@ app.get("/", (req, res) => {
 
 // Contact routes
 app.use("/api/contact", contactRoutes);
+// Film routes
+app.use("/api/films", filmRoutes);
+// Episodic routes
+app.use("/api/episodic", episodicRoutes);
+app.use("/api/admin/auth", authRoutes);
 
 // Start server
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

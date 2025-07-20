@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation(); // ✅ Get current URL path
 
   const navLinks = [
     { name: "HOME", path: "/" },
-    { name: "FILM", path: "/film" },
+    { name: "FILM", path: "/films" },       // ✅ FIXED plural path
     { name: "EPISODIC", path: "/episodic" },
     { name: "WHO ARE WE?", path: "/who-we-are" },
     { name: "GET IN TOUCH", path: "/contact" },
@@ -27,16 +28,21 @@ export default function Navbar() {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-8">
-          {navLinks.map((link, i) => (
-            <motion.div key={i} whileHover={{ scale: 1.05 }}>
-              <Link
-                to={link.path}
-                className="text-white hover:text-blue-400 transition"
-              >
-                {link.name}
-              </Link>
-            </motion.div>
-          ))}
+          {navLinks.map((link, i) => {
+            const isActive = location.pathname === link.path; // ✅ check active
+            return (
+              <motion.div key={i} whileHover={{ scale: 1.05 }}>
+                <Link
+                  to={link.path}
+                  className={`transition ${
+                    isActive ? "text-blue-400 font-semibold" : "text-white hover:text-blue-400"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              </motion.div>
+            );
+          })}
 
           {/* Start Your Project Button */}
           <motion.div whileHover={{ scale: 1.05 }}>
@@ -67,16 +73,22 @@ export default function Navbar() {
           animate={{ opacity: 1, y: 0 }}
           className="md:hidden bg-black/80 backdrop-blur-md px-6 py-4 space-y-4"
         >
-          {navLinks.map((link, i) => (
-            <Link
-              key={i}
-              to={link.path}
-              className="block text-white hover:text-blue-400 transition"
-              onClick={() => setIsOpen(false)}
-            >
-              {link.name}
-            </Link>
-          ))}
+          {navLinks.map((link, i) => {
+            const isActive = location.pathname === link.path;
+            return (
+              <Link
+                key={i}
+                to={link.path}
+                className={`block transition ${
+                  isActive ? "text-blue-400 font-semibold" : "text-white hover:text-blue-400"
+                }`}
+                onClick={() => setIsOpen(false)}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
+
           <Link
             to="/contact"
             className="block mt-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-md text-white font-semibold transition"
