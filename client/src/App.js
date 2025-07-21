@@ -1,4 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { useState, useCallback } from "react";
+
+// ✅ Loader
+import ParticleLoader from "./components/ParticleLoader";
+
+// ✅ Public Components
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
@@ -33,32 +39,47 @@ function LayoutWrapper({ children }) {
 }
 
 export default function App() {
+  const [loaded, setLoaded] = useState(false);
+
+  // ✅ useCallback prevents ESLint dependency warning for onFinish
+  const handleFinish = useCallback(() => {
+    setLoaded(true);
+  }, []);
+
   return (
-    <Router>
-      <LayoutWrapper>
-        <Routes>
-          {/* ✅ Public Pages */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/who-we-are" element={<WhoWeArePage />} />
-          <Route path="/contact" element={<GetInTouchPage />} />
-          <Route path="/films" element={<FilmPage />} />
-          <Route path="/episodic" element={<EpisodicPage />} />
+    <>
+      {/* ✅ Loader before site appears */}
+      {!loaded && <ParticleLoader onFinish={handleFinish} />}
 
-          {/* ✅ Admin Auth Pages */}
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/signup" element={<AdminSignup />} />
+      {/* ✅ Only show site when loader finishes */}
+      {loaded && (
+        <Router>
+          <LayoutWrapper>
+            <Routes>
+              {/* ✅ Public Pages */}
+              <Route path="/" element={<HomePage />} />
+              <Route path="/who-we-are" element={<WhoWeArePage />} />
+              <Route path="/contact" element={<GetInTouchPage />} />
+              <Route path="/films" element={<FilmPage />} />
+              <Route path="/episodic" element={<EpisodicPage />} />
 
-          {/* ✅ Protected Admin Dashboard + subroutes */}
-          <Route
-            path="/admin/dashboard/*"
-            element={
-              <ProtectedRoute>
-                <AdminDashboard />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </LayoutWrapper>
-    </Router>
+              {/* ✅ Admin Auth Pages */}
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin/signup" element={<AdminSignup />} />
+
+              {/* ✅ Protected Admin Dashboard + subroutes */}
+              <Route
+                path="/admin/dashboard/*"
+                element={
+                  <ProtectedRoute>
+                    <AdminDashboard />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </LayoutWrapper>
+        </Router>
+      )}
+    </>
   );
 }
