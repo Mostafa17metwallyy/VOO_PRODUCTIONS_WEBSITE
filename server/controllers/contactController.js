@@ -52,4 +52,24 @@ export const getAllMessages = async (req, res) => {
       message: "Server error while fetching messages",
     });
   }
+  
 };
+// ✅ Delete a contact response
+export const deleteMessage = async (req, res) => {
+  try {
+    const deletedMessage = await Contact.findByIdAndDelete(req.params.id);
+
+    if (!deletedMessage) {
+      return res.status(404).json({ success: false, message: "Response not found" });
+    }
+
+    return res.json({ success: true, message: "Response deleted successfully" });
+  } catch (error) {
+    console.error("❌ Error deleting response:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Server error while deleting response",
+    });
+  }
+};
+

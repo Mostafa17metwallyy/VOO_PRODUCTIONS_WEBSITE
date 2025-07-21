@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FaInbox, FaFilm, FaTv, FaTachometerAlt, FaSignOutAlt } from "react-icons/fa";
+import { FaInbox, FaFilm, FaTv, FaSignOutAlt } from "react-icons/fa";
 
 export default function AdminSidebar() {
   const location = useLocation();
@@ -12,7 +12,6 @@ export default function AdminSidebar() {
   };
 
   const links = [
-    { name: "Dashboard", icon: <FaTachometerAlt />, path: "/admin/dashboard" },
     { name: "Responses", icon: <FaInbox />, path: "/admin/dashboard/responses" },
     { name: "Films", icon: <FaFilm />, path: "/admin/dashboard/films" },
     { name: "Episodic", icon: <FaTv />, path: "/admin/dashboard/episodic" },
@@ -22,7 +21,7 @@ export default function AdminSidebar() {
     <aside className="flex flex-col justify-between w-64 bg-gradient-to-b from-blue-700 to-blue-800 text-white min-h-screen p-4">
       {/* ✅ Top Section */}
       <div>
-        <h1 className="text-2xl font-bold mb-6 text-center">🎬 VOO Admin</h1>
+        <h1 className="text-2xl font-bold mb-6 text-center">VOO Admin</h1>
 
         <nav className="space-y-2">
           {links.map((link, idx) => {

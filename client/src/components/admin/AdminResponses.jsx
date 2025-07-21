@@ -30,8 +30,31 @@ export default function AdminResponses() {
   }, []);
 
   if (loading) {
-    return <p className="text-center p-4 text-gray-500">Loading responses...</p>;
+    return (
+      <p className="text-center p-4 text-gray-500">Loading responses...</p>
+    );
   }
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this response?"))
+      return;
+
+    try {
+      const res = await fetch(`http://localhost:5000/api/contact/${id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        alert("✅ Response deleted successfully");
+        // Remove deleted response from state
+        setResponses((prev) => prev.filter((r) => r._id !== id));
+      } else {
+        alert("❌ Failed to delete response");
+      }
+    } catch (err) {
+      console.error("❌ Error deleting response:", err);
+    }
+  };
 
   return (
     <div>
@@ -50,6 +73,7 @@ export default function AdminResponses() {
                 <th className="p-3">Message</th>
                 <th className="p-3">Source</th>
                 <th className="p-3">Submitted At</th>
+                <th className="p-3">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -65,6 +89,15 @@ export default function AdminResponses() {
                   <td className="p-3">{res.source}</td>
                   <td className="p-3">
                     {new Date(res.createdAt).toLocaleString()}
+                  </td>
+                  {/* ✅ Delete button */}
+                  <td className="p-3">
+                    <button
+                      onClick={() => handleDelete(res._id)}
+                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm"
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}

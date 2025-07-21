@@ -11,5 +11,6 @@ router.post("/", createContact);
 
 // GET - Fetch all submissions (admin)
 router.get("/", getAllMessages);
+router.delete("/:id", deleteMessage);
 
 export default router;
