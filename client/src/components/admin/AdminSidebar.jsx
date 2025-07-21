@@ -13,9 +13,9 @@ export default function AdminSidebar() {
 
   const links = [
     { name: "Dashboard", icon: <FaTachometerAlt />, path: "/admin/dashboard" },
-    { name: "Responses", icon: <FaInbox />, path: "/admin/responses" },
-    { name: "Films", icon: <FaFilm />, path: "/admin/films" },
-    { name: "Episodic", icon: <FaTv />, path: "/admin/episodic" },
+    { name: "Responses", icon: <FaInbox />, path: "/admin/dashboard/responses" },
+    { name: "Films", icon: <FaFilm />, path: "/admin/dashboard/films" },
+    { name: "Episodic", icon: <FaTv />, path: "/admin/dashboard/episodic" },
   ];
 
   return (
