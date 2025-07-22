@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useState, useCallback } from "react";
 
-// ✅ Loader
-import ParticleLoader from "./components/ParticleLoader";
+// ✅ Loader (cinematic count-up loader)
+import CountLoader from "./components/CountLoader";
 
 // ✅ Public Components
 import Navbar from "./components/Navbar";
@@ -41,17 +41,17 @@ function LayoutWrapper({ children }) {
 export default function App() {
   const [loaded, setLoaded] = useState(false);
 
-  // ✅ useCallback prevents ESLint dependency warning for onFinish
+  // ✅ Stable callback for the loader finish
   const handleFinish = useCallback(() => {
     setLoaded(true);
   }, []);
 
   return (
     <>
-      {/* ✅ Loader before site appears */}
-      {!loaded && <ParticleLoader onFinish={handleFinish} />}
+      {/* ✅ Show loader first before site */}
+      {!loaded && <CountLoader onFinish={handleFinish} />}
 
-      {/* ✅ Only show site when loader finishes */}
+      {/* ✅ Show the site only after loader finishes */}
       {loaded && (
         <Router>
           <LayoutWrapper>
