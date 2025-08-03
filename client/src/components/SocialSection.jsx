@@ -1,6 +1,12 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { FaYoutube, FaFacebookF, FaTiktok, FaInstagram, FaTwitter } from "react-icons/fa";
+import {
+  FaYoutube,
+  FaFacebookF,
+  FaTiktok,
+  FaInstagram,
+} from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 export default function SocialSection() {
   const { ref, inView } = useInView({ triggerOnce: false, threshold: 0.2 });
@@ -10,7 +16,7 @@ export default function SocialSection() {
     { icon: <FaFacebookF />, url: "https://facebook.com" },
     { icon: <FaTiktok />, url: "https://tiktok.com" },
     { icon: <FaInstagram />, url: "https://instagram.com" },
-    { icon: <FaTwitter />, url: "https://twitter.com" },
+    { icon: <FaXTwitter />, url: "https://twitter.com" },
   ];
 
   return (
@@ -27,7 +33,10 @@ export default function SocialSection() {
         />
       </svg>
 
-      <div ref={ref} className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+      <div
+        ref={ref}
+        className="relative z-10 max-w-5xl mx-auto px-6 text-center"
+      >
         {/* Title */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

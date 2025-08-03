@@ -1,4 +1,5 @@
 import { FaYoutube, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -10,15 +11,15 @@ export default function Footer() {
           <p className="text-sm">Bringing stories to life through cinematic excellence</p>
         </div>
 
-        {/* Column 2 - Quick Links */}
+        {/* Column 2 - Quick Links (Same as Navbar) */}
         <div>
           <h3 className="text-white font-semibold mb-3">Quick Links</h3>
           <ul className="space-y-2">
-            <li><a href="#film" className="hover:text-white">Films</a></li>
-            <li><a href="#episodic" className="hover:text-white">Episodic</a></li>
-            <li><a href="#news" className="hover:text-white">News</a></li>
-            <li><a href="#awards" className="hover:text-white">Awards</a></li>
-            <li><a href="#history" className="hover:text-white">History</a></li>
+            <li><Link to="/" className="hover:text-white">Home</Link></li>
+            <li><Link to="/films" className="hover:text-white">Film</Link></li>
+            <li><Link to="/episodic" className="hover:text-white">Episodic</Link></li>
+            <li><Link to="/who-we-are" className="hover:text-white">Who Are We?</Link></li>
+            <li><Link to="/contact" className="hover:text-white">Get In Touch</Link></li>
           </ul>
         </div>
 
@@ -48,9 +49,20 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom Copyright */}
-      <div className="border-t border-gray-700 mt-10 pt-6 text-center text-sm text-gray-500">
-        © {new Date().getFullYear()} VOO Productions. All rights reserved.
+      {/* Bottom Section */}
+      <div className="border-t border-gray-700 mt-10 pt-6 text-center text-sm text-gray-500 space-y-2">
+        <p>© {new Date().getFullYear()} VOO Productions. All rights reserved.</p>
+        <p>
+          Powered by{" "}
+          <a
+            href="https://thesydev.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:underline"
+          >
+            Sydev
+          </a>
+        </p>
       </div>
     </footer>
   );

@@ -266,7 +266,7 @@ export default function GetInTouchPage() {
             variants={fadeInUp}
             className="text-2xl md:text-3xl font-bold text-blue-400 mb-8"
           >
-            OUR STUDIOS
+            OUR OFFICE
           </motion.h2>
           <p className="text-gray-300 mb-8">
             Visit our production hubs in the world’s most creative cities.

@@ -4,6 +4,9 @@ import { useState, useCallback } from "react";
 // ✅ Loader (cinematic count-up loader)
 import CountLoader from "./components/CountLoader";
 
+// ✅ Scroll to Top on route change
+import ScrollToTop from "./components/ScrollToTop"; // 👈 ADD THIS
+
 // ✅ Public Components
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -20,7 +23,7 @@ import AdminDashboard from "./components/admin/AdminDashboard";
 
 // ✅ Protected Route for Admin
 function ProtectedRoute({ children }) {
-  const token = localStorage.getItem("adminToken"); // ✅ Check if admin logged in
+  const token = localStorage.getItem("adminToken");
   return token ? children : <Navigate to="/admin/login" />;
 }
 
@@ -41,33 +44,31 @@ function LayoutWrapper({ children }) {
 export default function App() {
   const [loaded, setLoaded] = useState(false);
 
-  // ✅ Stable callback for the loader finish
   const handleFinish = useCallback(() => {
     setLoaded(true);
   }, []);
 
   return (
     <>
-      {/* ✅ Show loader first before site */}
       {!loaded && <CountLoader onFinish={handleFinish} />}
 
-      {/* ✅ Show the site only after loader finishes */}
       {loaded && (
         <Router>
+          <ScrollToTop /> {/* 👈 ADD THIS INSIDE Router */}
           <LayoutWrapper>
             <Routes>
-              {/* ✅ Public Pages */}
+              {/* Public Pages */}
               <Route path="/" element={<HomePage />} />
               <Route path="/who-we-are" element={<WhoWeArePage />} />
               <Route path="/contact" element={<GetInTouchPage />} />
               <Route path="/films" element={<FilmPage />} />
               <Route path="/episodic" element={<EpisodicPage />} />
 
-              {/* ✅ Admin Auth Pages */}
+              {/* Admin Auth Pages */}
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin/signup" element={<AdminSignup />} />
 
-              {/* ✅ Protected Admin Dashboard + subroutes */}
+              {/* Protected Admin Dashboard */}
               <Route
                 path="/admin/dashboard/*"
                 element={
