@@ -2,6 +2,7 @@ import express from "express";
 import {
   getAllMessages,
   createContact,
+  deleteMessage,
 } from "../controllers/contactController.js";
 
 const router = express.Router();
