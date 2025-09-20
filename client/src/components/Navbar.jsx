@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
+// 👇 import your logo (adjust path/filename as needed)
+import logo from "../assets/logo.png";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation(); // ✅ Get current URL path
+  const location = useLocation();
 
   const navLinks = [
     { name: "HOME", path: "/" },
-    { name: "FILM", path: "/films" },       // ✅ FIXED plural path
+    { name: "FILM", path: "/films" },
     { name: "EPISODIC", path: "/episodic" },
     { name: "WHO ARE WE?", path: "/who-we-are" },
     { name: "GET IN TOUCH", path: "/contact" },
@@ -16,26 +18,34 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-black/50 backdrop-blur-md border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-6 py-8 flex items-center justify-between">
-        {/* Logo */}
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        {/* Logo (linked to Home) */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="text-white font-bold text-lg tracking-wider"
+          className="flex-shrink-0"
         >
-          VOO PRODUCTIONS
+          <Link to="/">
+            <img
+              src={logo}
+              alt="VOO Productions Logo"
+              className="h-20 md:h-24 w-auto -my-3 block" // adjust size as you like
+            />
+          </Link>
         </motion.div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-8">
+        <div className="hidden md:flex space-x-8 items-center">
           {navLinks.map((link, i) => {
-            const isActive = location.pathname === link.path; // ✅ check active
+            const isActive = location.pathname === link.path;
             return (
               <motion.div key={i} whileHover={{ scale: 1.05 }}>
                 <Link
                   to={link.path}
                   className={`transition ${
-                    isActive ? "text-blue-400 font-semibold" : "text-white hover:text-blue-400"
+                    isActive
+                      ? "text-blue-400 font-semibold"
+                      : "text-white hover:text-blue-400"
                   }`}
                 >
                   {link.name}
@@ -59,7 +69,7 @@ export default function Navbar() {
         <div className="md:hidden">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-white focus:outline-none"
+            className="text-white focus:outline-none text-2xl"
           >
             ☰
           </button>
@@ -80,7 +90,9 @@ export default function Navbar() {
                 key={i}
                 to={link.path}
                 className={`block transition ${
-                  isActive ? "text-blue-400 font-semibold" : "text-white hover:text-blue-400"
+                  isActive
+                    ? "text-blue-400 font-semibold"
+                    : "text-white hover:text-blue-400"
                 }`}
                 onClick={() => setIsOpen(false)}
               >
