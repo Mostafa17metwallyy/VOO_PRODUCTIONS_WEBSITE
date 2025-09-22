@@ -4,8 +4,6 @@ import { useInView } from "react-intersection-observer";
 
 export default function ProductionsSection() {
   const [activeTab, setActiveTab] = useState("films");
-
-  // Scroll trigger
   const { ref, inView } = useInView({ triggerOnce: false, threshold: 0.2 });
 
   const films = [
@@ -30,23 +28,43 @@ export default function ProductionsSection() {
     { title: "Legends Retold", desc: "Modern retelling of classics", img: "https://picsum.photos/400/300?random=16" },
   ];
 
-  const data = activeTab === "films" ? films : episodic;
+  // NEW: Advertising tab data (same card layout)
+  const advertising = [
+    { title: "Luxury Fragrance", desc: "Cinematic product film", img: "https://picsum.photos/400/300?random=21" },
+    { title: "Sportswear Launch", desc: "Fast-cut hype spot", img: "https://picsum.photos/400/300?random=22" },
+    { title: "Tech Gadget", desc: "CGI + live-action ad", img: "https://picsum.photos/400/300?random=23" },
+    { title: "F&B Campaign", desc: "Macro food stylized ad", img: "https://picsum.photos/400/300?random=24" },
+    { title: "Automotive Teaser", desc: "Moody metal & motion", img: "https://picsum.photos/400/300?random=25" },
+    { title: "Beauty Brand", desc: "Soft light product reel", img: "https://picsum.photos/400/300?random=26" },
+    { title: "Event Promo", desc: "High-energy social cut", img: "https://picsum.photos/400/300?random=27" },
+    { title: "App Launch", desc: "Motion graphics explainer", img: "https://picsum.photos/400/300?random=28" },
+  ];
+
+  const tabs = [
+    { key: "films", label: "Films" },
+    { key: "episodic", label: "Episodic" },
+    { key: "ads", label: "Advertising" }, // 👈 NEW
+  ];
+
+  const dataset = {
+    films,
+    episodic,
+    ads: advertising,
+  }[activeTab];
 
   return (
     <section
       ref={ref}
       className="relative py-20 text-white"
       style={{
-        backgroundImage: `url('/production-bg.png')`, // placeholder background
+        backgroundImage: `url('/production-bg.png')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/70"></div>
+      <div className="absolute inset-0 bg-black/70" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
-        {/* Section Title */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -61,28 +79,24 @@ export default function ProductionsSection() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.2 }}
-          className="flex justify-center space-x-6 mb-10"
+          className="flex justify-center gap-6 mb-10"
+          role="tablist"
         >
-          <button
-            onClick={() => setActiveTab("films")}
-            className={`pb-2 text-lg font-semibold ${
-              activeTab === "films"
-                ? "border-b-2 border-blue-500 text-blue-400"
-                : "text-gray-300 hover:text-white"
-            }`}
-          >
-            Films
-          </button>
-          <button
-            onClick={() => setActiveTab("episodic")}
-            className={`pb-2 text-lg font-semibold ${
-              activeTab === "episodic"
-                ? "border-b-2 border-blue-500 text-blue-400"
-                : "text-gray-300 hover:text-white"
-            }`}
-          >
-            Episodic
-          </button>
+          {tabs.map((t) => (
+            <button
+              key={t.key}
+              role="tab"
+              aria-selected={activeTab === t.key}
+              onClick={() => setActiveTab(t.key)}
+              className={`pb-2 text-lg font-semibold ${
+                activeTab === t.key
+                  ? "border-b-2 border-blue-500 text-blue-400"
+                  : "text-gray-300 hover:text-white"
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
         </motion.div>
 
         {/* Cards Grid */}
@@ -93,18 +107,14 @@ export default function ProductionsSection() {
           transition={{ duration: 0.6 }}
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
         >
-          {data.map((item, idx) => (
+          {dataset.map((item, idx) => (
             <motion.div
               key={idx}
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 200 }}
               className="bg-white/10 backdrop-blur-sm rounded-lg overflow-hidden shadow-md"
             >
-              <img
-                src={item.img}
-                alt={item.title}
-                className="w-full h-40 object-cover"
-              />
+              <img src={item.img} alt={item.title} className="w-full h-40 object-cover" />
               <div className="p-4">
                 <h3 className="text-lg font-semibold">{item.title}</h3>
                 <p className="text-sm text-gray-300">{item.desc}</p>
