@@ -5,7 +5,7 @@ import { useState, useCallback } from "react";
 import CountLoader from "./components/CountLoader";
 
 // ✅ Scroll to Top on route change
-import ScrollToTop from "./components/ScrollToTop"; // 👈 ADD THIS
+import ScrollToTop from "./components/ScrollToTop"; 
 
 // ✅ Public Components
 import Navbar from "./components/Navbar";
@@ -15,6 +15,8 @@ import WhoWeArePage from "./pages/WhoWeArePage";
 import GetInTouchPage from "./pages/GetInTouchPage";
 import FilmPage from "./pages/FilmPage";
 import EpisodicPage from "./pages/EpisodicPage";
+import AdvertisingPage from "./pages/Advertising"; 
+
 
 // ✅ Admin Pages
 import AdminLogin from "./pages/AdminLogin";
@@ -63,6 +65,7 @@ export default function App() {
               <Route path="/contact" element={<GetInTouchPage />} />
               <Route path="/films" element={<FilmPage />} />
               <Route path="/episodic" element={<EpisodicPage />} />
+              <Route path="/advertising" element={<AdvertisingPage />} />
 
               {/* Admin Auth Pages */}
               <Route path="/admin/login" element={<AdminLogin />} />

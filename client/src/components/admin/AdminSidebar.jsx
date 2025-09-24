@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FaInbox, FaFilm, FaTv, FaSignOutAlt } from "react-icons/fa";
+import { FaInbox, FaFilm, FaTv, FaSignOutAlt , FaBullhorn  } from "react-icons/fa";
 
 export default function AdminSidebar() {
   const location = useLocation();
@@ -12,9 +12,18 @@ export default function AdminSidebar() {
   };
 
   const links = [
-    { name: "Responses", icon: <FaInbox />, path: "/admin/dashboard/responses" },
+    {
+      name: "Responses",
+      icon: <FaInbox />,
+      path: "/admin/dashboard/responses",
+    },
     { name: "Films", icon: <FaFilm />, path: "/admin/dashboard/films" },
     { name: "Episodic", icon: <FaTv />, path: "/admin/dashboard/episodic" },
+    {
+      name: "Advertising",
+      icon: <FaBullhorn />,
+      path: "/admin/dashboard/advertising",
+    },
   ];
 
   return (

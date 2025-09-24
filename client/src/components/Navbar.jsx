@@ -12,6 +12,7 @@ export default function Navbar() {
     { name: "HOME", path: "/" },
     { name: "FILM", path: "/films" },
     { name: "EPISODIC", path: "/episodic" },
+    { name: "ADVERTISING", path: "/advertising" },
     { name: "WHO ARE WE?", path: "/who-we-are" },
     { name: "GET IN TOUCH", path: "/contact" },
   ];

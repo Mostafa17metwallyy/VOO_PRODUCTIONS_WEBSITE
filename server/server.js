@@ -6,6 +6,7 @@ import contactRoutes from "./routes/contactRoutes.js";
 import filmRoutes from "./routes/filmRoutes.js";
 import episodicRoutes from "./routes/episodicRoutes.js";
 import authRoutes from "./routes/adminAuthRoutes.js";
+import advertisingRoutes from "./routes/advertisingRoutes.js";
 
 
 
@@ -36,6 +37,7 @@ app.get("/", (req, res) => {
 app.use("/api/contact", contactRoutes);
 // Film routes
 app.use("/api/films", filmRoutes);
+app.use("/api/advertising", advertisingRoutes);
 // Episodic routes
 app.use("/api/episodic", episodicRoutes);
 app.use("/api/admin/auth", authRoutes);
